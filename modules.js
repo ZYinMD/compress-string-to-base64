@@ -42,16 +42,18 @@ export async function arrayBufferToBase64(buffer) {
   return dataUrl.split("base64,")[1];
 }
 
-const chars =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+/* the code below was copied from npm base64-arraybuffer: https://www.npmjs.com/package/base64-arraybuffer */
 
 // Use a lookup table to find the index.
 const lookup = typeof Uint8Array === "undefined" ? [] : new Uint8Array(256);
+const chars =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 for (let i = 0; i < chars.length; i++) {
   lookup[chars.charCodeAt(i)] = i;
 }
 
 /**
+ * a js implementation of decoding base64, it's faster than atob, also faster than using fetch
  * @param {string} base64String
  */
 export function decodeBase64(base64String) {
