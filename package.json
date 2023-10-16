@@ -1,0 +1,12 @@
+{
+  "name": "compress-string-to-base64",
+  "version": "0.0.1",
+  "description": "compress string with gzip, then encode with base64, and reverse",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
