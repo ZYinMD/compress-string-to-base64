@@ -10,7 +10,7 @@ const compressed = await stringToBase64(original); // "H4sIAAAAAAAACvNIzcnJVyjPL
 const restored = await base64ToString(compressed); // "Hello world ❤️"
 ```
 
-- Optimized for large strings (tens of megabytes).
+- Optimized for large strings (megabytes or more).
 - base64 can be about half the size of input.
 - Encoding uses `FileReader.readAsDataURL()` which is faster than `btoa()` or a JavaScript implementation.
 - Decoding uses a JavaScript implementation which is faster than `atob()` or `fetch()` of a data URL.
