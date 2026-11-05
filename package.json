@@ -4,7 +4,16 @@
   "description": "Compress string with gzip, then encode with base64. And reverse",
   "main": "index.js",
   "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "modules.js",
+    "index.d.ts"
+  ],
   "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "benchmark": "node bench/server.js"
+  },
   "author": "ZYinMD",
   "license": "MIT"
 }

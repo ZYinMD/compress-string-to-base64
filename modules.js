@@ -1,3 +1,14 @@
+// Feed buffered input through a transform while its output is consumed, so stream errors stay within the returned conversion promise.
+function transformBytes(bytes, transform) {
+  const input = new ReadableStream({
+    start(controller) {
+      controller.enqueue(bytes);
+      controller.close();
+    },
+  });
+  return input.pipeThrough(transform);
+}
+
 /**
  * compress a string to bytes using gzip
  * @param {string} string
@@ -5,11 +16,8 @@
  */
 export function zipString(string) {
   const byteArray = new TextEncoder().encode(string);
-  const cs = new CompressionStream("gzip");
-  const writer = cs.writable.getWriter();
-  writer.write(byteArray);
-  writer.close();
-  return new Response(cs.readable).arrayBuffer();
+  const output = transformBytes(byteArray, new CompressionStream("gzip"));
+  return new Response(output).arrayBuffer();
 }
 
 /**
@@ -18,15 +26,11 @@ export function zipString(string) {
  * @returns {Promise<string>}
  */
 export async function unzipToString(bytes) {
-  const cs = new DecompressionStream("gzip");
-  const writer = cs.writable.getWriter();
-  writer.write(bytes);
-  writer.close();
-  const arrayBuffer = await new Response(cs.readable).arrayBuffer();
-  return new TextDecoder().decode(arrayBuffer);
+  const output = transformBytes(bytes, new DecompressionStream("gzip"));
+  return new Response(output).text();
 }
 
-/** convert arrayBuffer to base64 using the fileReader API, which is more performant than btoa as well as js implementation
+/** Convert an ArrayBuffer to Base64 using FileReader; browser performance comparisons are documented in bench/RESULTS.md.
  * @param {ArrayBuffer} buffer
  * @returns {Promise<string>}
  */
@@ -34,12 +38,25 @@ export async function arrayBufferToBase64(buffer) {
   const file = new File([buffer], "temp.bin", {
     type: "application/octet-stream",
   });
-  const fileReader = new FileReader();
-  const dataUrl = await new Promise((resolve) => {
-    fileReader.onload = () => resolve(fileReader.result);
+  return new Promise(function encodeBase64(resolve, reject) {
+    const fileReader = new FileReader();
+    fileReader.onload = function loaded() {
+      const dataUrl = fileReader.result;
+      const marker = ";base64,";
+      if (typeof dataUrl !== "string" || !dataUrl.startsWith("data:") || !dataUrl.includes(marker)) {
+        reject(new Error("FileReader did not return a Base64 data URL."));
+        return;
+      }
+      resolve(dataUrl.slice(dataUrl.indexOf(marker) + marker.length));
+    };
+    fileReader.onerror = function failed() {
+      reject(fileReader.error ?? new Error("FileReader could not encode the data."));
+    };
+    fileReader.onabort = function aborted() {
+      reject(new DOMException("Base64 encoding was aborted.", "AbortError"));
+    };
     fileReader.readAsDataURL(file);
-  }); // something like `data:application/octet-stream;base64,AQpy3Es9Ja0Abb=`
-  return dataUrl.split("base64,")[1];
+  });
 }
 
 /* the code below was copied from npm base64-arraybuffer: https://www.npmjs.com/package/base64-arraybuffer */
@@ -53,7 +70,7 @@ for (let i = 0; i < chars.length; i++) {
 }
 
 /**
- * a js implementation of decoding base64, it's faster than atob, also faster than using fetch
+ * Decode Base64 directly into bytes using a lookup table, without an intermediate binary string.
  * @param {string} base64String
  */
 export function decodeBase64(base64String) {

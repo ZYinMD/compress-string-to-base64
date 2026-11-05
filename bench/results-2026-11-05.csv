@@ -1,0 +1,37 @@
+sample,gzip_bytes,direction,method,median_ms,p10_ms,p90_ms,observations,batch
+db_authors.js (tiktok-main-account),289372,encoding,FileReader (package),0.965833,0.491433,1.3077,14,15
+db_authors.js (tiktok-main-account),289372,encoding,btoa + chunked byte conversion,15.099333,8.358567,17.636167,14,15
+db_authors.js (tiktok-main-account),289372,encoding,JavaScript lookup encoder (joined chunks),6.121167,5.205767,7.208433,14,15
+db_authors.js (tiktok-main-account),289372,encoding,Uint8Array.toBase64 (native),0.085333,0.045867,0.111933,14,15
+db_authors.js (tiktok-main-account),289372,decoding,JavaScript lookup decoder (package),1.557,1.3436,1.8082,14,15
+db_authors.js (tiktok-main-account),289372,decoding,atob + preallocated byte loop,1.3455,1.119867,1.673733,14,15
+db_authors.js (tiktok-main-account),289372,decoding,atob + Uint8Array.from callback,32.0545,29.9393,35.287067,14,15
+db_authors.js (tiktok-main-account),289372,decoding,fetch(data URL) + arrayBuffer,2.179167,2.046667,2.405,14,15
+db_authors.js (tiktok-main-account),289372,decoding,Uint8Array.fromBase64 (native),0.143333,0.108533,0.196033,14,15
+db_following.js (douyin-main-account),7741036,encoding,FileReader (package),27.2125,17.089,29.658,14,1
+db_following.js (douyin-main-account),7741036,encoding,btoa + chunked byte conversion,422.475,396.765,459.967,14,1
+db_following.js (douyin-main-account),7741036,encoding,JavaScript lookup encoder (joined chunks),159.725,143.8135,169.8175,14,1
+db_following.js (douyin-main-account),7741036,encoding,Uint8Array.toBase64 (native),2.9975,1.673,4.3955,14,1
+db_following.js (douyin-main-account),7741036,decoding,JavaScript lookup decoder (package),43.91,38.1865,47.8215,14,1
+db_following.js (douyin-main-account),7741036,decoding,atob + preallocated byte loop,43.1075,39.4055,62.907,14,1
+db_following.js (douyin-main-account),7741036,decoding,atob + Uint8Array.from callback,971.9425,907.8835,1058.746,14,1
+db_following.js (douyin-main-account),7741036,decoding,fetch(data URL) + arrayBuffer,78.18,72.0975,86.9705,14,1
+db_following.js (douyin-main-account),7741036,decoding,Uint8Array.fromBase64 (native),6.8925,6.0605,7.78,14,1
+db_videos.js (tiktok-main-account),21362060,encoding,FileReader (package),55.0025,35.796,61.523,14,1
+db_videos.js (tiktok-main-account),21362060,encoding,btoa + chunked byte conversion,1194.7875,433.0135,1329.8725,14,1
+db_videos.js (tiktok-main-account),21362060,encoding,JavaScript lookup encoder (joined chunks),436.9075,368.79,484.605,14,1
+db_videos.js (tiktok-main-account),21362060,encoding,Uint8Array.toBase64 (native),8.1425,4.5415,10.143,14,1
+db_videos.js (tiktok-main-account),21362060,decoding,JavaScript lookup decoder (package),132.2175,116.7725,151.0,14,1
+db_videos.js (tiktok-main-account),21362060,decoding,atob + preallocated byte loop,118.1,69.388,146.8985,14,1
+db_videos.js (tiktok-main-account),21362060,decoding,atob + Uint8Array.from callback,2817.8475,2335.1945,2969.225,14,1
+db_videos.js (tiktok-main-account),21362060,decoding,fetch(data URL) + arrayBuffer,223.4325,204.3835,252.7315,14,1
+db_videos.js (tiktok-main-account),21362060,decoding,Uint8Array.fromBase64 (native),19.5975,16.8605,24.848,14,1
+db_texts.js (douyin-main-account),31543321,encoding,FileReader (package),75.33,63.718,77.808,14,1
+db_texts.js (douyin-main-account),31543321,encoding,btoa + chunked byte conversion,1869.445,1771.985,2033.7485,14,1
+db_texts.js (douyin-main-account),31543321,encoding,JavaScript lookup encoder (joined chunks),646.2575,303.811,710.9925,14,1
+db_texts.js (douyin-main-account),31543321,encoding,Uint8Array.toBase64 (native),12.57,6.47,18.899,14,1
+db_texts.js (douyin-main-account),31543321,decoding,JavaScript lookup decoder (package),186.0575,164.6795,225.055,14,1
+db_texts.js (douyin-main-account),31543321,decoding,atob + preallocated byte loop,180.6975,171.2535,208.5005,14,1
+db_texts.js (douyin-main-account),31543321,decoding,atob + Uint8Array.from callback,4260.1325,1869.5925,4389.6675,14,1
+db_texts.js (douyin-main-account),31543321,decoding,fetch(data URL) + arrayBuffer,330.625,276.7785,373.7585,14,1
+db_texts.js (douyin-main-account),31543321,decoding,Uint8Array.fromBase64 (native),30.1175,26.0565,31.3005,14,1
